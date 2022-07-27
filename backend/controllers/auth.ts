@@ -35,9 +35,10 @@ export class AuthController {
       } as ICompany);
       const refreshToken = await this.refreshTokenService.create(company);
 
+      const { cookieOptions } = this.refreshTokenService.generateTokenCookie(refreshToken);
       res.cookie(
         'refreshToken',
-        this.refreshTokenService.generateTokenCookie(refreshToken)
+        refreshToken, { ...cookieOptions }
       );
       res.status(200).json({ token });
     } catch (e: any) {
@@ -66,16 +67,15 @@ export class AuthController {
   async RefreshToken(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.cookies) throw new Error('Companhia não logada');
-      const headerToken = cookie.parse(req.cookies['refreshToken']);
-      const parsedHeaderToken = headerToken?.refreshToken;
-      const oldToken = await this.refreshTokenService.get(parsedHeaderToken);
+      const headerToken = req.cookies['refreshToken'];
+      const oldToken = await this.refreshTokenService.get(headerToken);
       await this.refreshTokenService.revoke(oldToken.token);
 
-      const { company } = oldToken;
-      const refreshToken = await this.refreshTokenService.create(
-        oldToken.company
-      );
-      const token = tokenService.sign({ id: company._id, role: company.role });
+      const { user } = oldToken;
+      const refreshToken = await this.refreshTokenService.create({ 
+          _id: oldToken.user_id 
+      });
+      const token = tokenService.sign({ id: user._id, role: user.role });
 
       res.cookie(
         'refreshToken',
@@ -83,6 +83,7 @@ export class AuthController {
       );
       res.status(200).json({ token });
     } catch (e: any) {
+      console.log(e)
       next({ statusCode: 401, message: e.message || 'Não autorizado' });
     }
   }

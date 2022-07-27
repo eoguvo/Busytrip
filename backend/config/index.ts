@@ -7,3 +7,9 @@ export const crypto = {
   },
   jwtRefreshExpiration: 604800000, //1000*60*60*24*7
 };
+
+export enum ROLES {
+  ADMIN,
+  COMPANY,
+  USER
+}

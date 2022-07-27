@@ -9,6 +9,10 @@ declare global {
         email: string;
         Roles: Roles;
       };
+
+      route: {
+        path: string;
+      }
     }
   }
 }

@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose from '..';
 
 function createSchema() {
   const schema = new mongoose.Schema({
     token: String,
-    company: {
+    user_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Company',
+      ref: 'users',
     },
     expiryDate: Date,
-  });
+  }, { timestamps: true });
 
   schema.index({ expiryDate: 1 }, { expireAfterSeconds: 0 });
 

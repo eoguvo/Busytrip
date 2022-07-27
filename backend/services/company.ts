@@ -1,16 +1,21 @@
+
+import { ROLES } from './../config/index';
 import crypto from './crypto';
-import CompanyModel from '../database/models/company';
+import UserModel from '../database/models/user';
 import R from 'ramda';
 import { ICompany } from '../interfaces/company';
 import tokenService from './token';
 
 export class CompanyService {
   db;
+  companyRole = -1;
   constructor() {
-    this.db = CompanyModel;
+    this.db = UserModel;
+    this.companyRole = ROLES.COMPANY;
   }
+  
   async GetAll() {
-    const companies = await this.db.find().lean<ICompany[]>();
+    const companies = await this.db.find({ role: this.companyRole }).lean<ICompany[]>();
     return this.SerializeCompany(companies);
   }
 
@@ -22,14 +27,18 @@ export class CompanyService {
 
   async Create(user: ICompany) {
     try {
-      const hash = await crypto.hash(user.password!);
+      const hash: string = await crypto.hash(user.password!);
       const { _doc: data } = await this.db.create({
         ...user,
         password: hash,
+        location: {
+          ...user.location,
+          type: "Point"
+        }
       });
 
       const token = tokenService.sign({ id: data._id, role: data.role });
-      const company = this.SerializeCompany(data);
+      const company = this.SerializeCompany([data]);
 
       return {
         company,
@@ -43,6 +52,10 @@ export class CompanyService {
   async Update(id: string, body: ICompany) {
     if (!id) throw new Error('Selecione um id');
     return await this.db.findByIdAndUpdate(id, body);
+  }
+
+  async FindByEmail(email: string) {
+    return await this.db.findOne({ email });
   }
 
   async FindNear(latitude: number, longitude: number, distance = 50) {
@@ -60,10 +73,6 @@ export class CompanyService {
     };
     const companies = await this.db.find(filter).lean<ICompany[]>();
     return this.SerializeCompany(companies);
-  }
-
-  async FindByEmail(email: string) {
-    return await this.db.findOne({ email });
   }
 
   private SerializeCompany(company: ICompany[]): ICompany | ICompany[] {

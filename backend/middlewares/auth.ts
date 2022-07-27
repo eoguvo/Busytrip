@@ -1,9 +1,7 @@
-import { ICompany } from './../interfaces/company';
-import { AuthService } from './../services/auth';
 import { NextFunction, Request, Response } from 'express';
 import tokenService from '../services/token';
 
-export async function loggerMiddleware(
+export async function authorizate(
   req: Request,
   res: Response,
   next: NextFunction
@@ -31,15 +29,9 @@ export async function loggerMiddleware(
   }
 }
 
-export async function authenticated(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {}
-
 export function hasPermission(req: Request, res: Response, next: NextFunction) {
   const { role } = req.body;
-  const { id } = req.params;
+  const { id } = req.params || req.body;
   const user = res.locals.user;
 
   if (id != user.id && user.role !== 'ADMIN')
@@ -52,7 +44,7 @@ export function hasPermission(req: Request, res: Response, next: NextFunction) {
 }
 
 // https://stackoverflow.com/questions/35749833/typescript-function-taking-one-or-array-of-objects/35750134#answer-35750134
-export function authorized(...allowedRoles: string[]) {
+export function authorized(...allowedRoles: number[]) {
   return (req: Request, res: Response, next: NextFunction) => {
     !allowedRoles.includes(res.locals.user.role)
       ? res.status(405).json({ error: 'Not allowed' })

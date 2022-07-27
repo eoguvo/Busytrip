@@ -1,5 +1,3 @@
-import cookie from 'cookie';
-import { TokenInterface } from './../interfaces/token';
 import { ICompany } from '../interfaces/company';
 import { CompanyService } from './company';
 import crypto from './crypto';
@@ -10,7 +8,7 @@ export class AuthService {
     const companyService = new CompanyService();
 
     const company = await companyService.FindByEmail(email);
-    if (!company) throw { message: 'Companhia não existe' };
+    if (!company) throw { message: 'Usuário não existe' };
 
     const isMatch = await crypto.compare(password!, company.password);
     if (!isMatch) throw { message: 'Senha inválida' };

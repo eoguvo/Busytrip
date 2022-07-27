@@ -7,10 +7,10 @@ import {
   Middleware,
   Get,
   Post,
-  Put,
-  Delete,
+  Put
 } from '@overnightjs/core';
-import { loggerMiddleware } from '../middlewares/auth';
+import { authorizate } from '../middlewares/auth';
+import SchemaValidator from '../middlewares/schemaValidotr';
 
 @Controller('company')
 export class CompanyController {
@@ -22,7 +22,6 @@ export class CompanyController {
   }
 
   @Get()
-  @Middleware(loggerMiddleware)
   async GetAll(req: Request, res: Response) {
     const data = await this.CompanyService.GetAll();
     res.status(200).json(data);
@@ -45,6 +44,7 @@ export class CompanyController {
   }
 
   @Post()
+  @Middleware(SchemaValidator(true))
   async Create(req: Request, res: Response) {
     const { company, token } = await this.CompanyService.Create(req.body);
     const refreshToken = await this.refreshTokenService.create(
@@ -59,6 +59,7 @@ export class CompanyController {
   }
 
   @Put(':id')
+  @Middleware(authorizate)
   async Update(req: Request, res: Response) {
     await this.CompanyService.Update(req.params.id, req.body);
     res.status(204).json({ message: 'Updated successfully' });

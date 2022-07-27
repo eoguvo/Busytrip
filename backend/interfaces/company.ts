@@ -8,5 +8,7 @@ export interface ICompany {
   avatar_url: string;
   techs: [string];
   role: string;
-  location: {};
+  location: {
+    type: 'Point'
+  };
 }

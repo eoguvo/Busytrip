@@ -6,6 +6,6 @@ export interface TokenInterface {
 export interface IRefreshToken {
   _id: string;
   token: string;
-  company: string;
+  user_id: string;
   expiryDate: Date;
 }
