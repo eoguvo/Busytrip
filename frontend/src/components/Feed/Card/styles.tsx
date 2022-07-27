@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import HeartIcon from '../../../assets/heart'
 
 export const Card = styled.a`
   display: inline-block;
-  padding: 0 16px;
+  padding: 16px;
   transition: .3S all ease-in-out;
   border-radius: 16px;
   position: relative;
+  z-index: 1;
 
   &:hover {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

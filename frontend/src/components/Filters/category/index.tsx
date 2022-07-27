@@ -1,17 +1,19 @@
-import { ReactNode } from "react";
-import { } from "./styles";
+import { FC } from "react";
+import { CategoryWrapper } from "./styles";
 
-type CategoryProps = {
-  children: ReactNode, 
-  iconName: string
+interface CategoryProps {
+  text: string, 
+  Icon: FC,
+  active: boolean,
+  onClick: Function
 }
 
-function Category({ children, iconName }: CategoryProps) {
+function Category({ text, Icon, active }: CategoryProps, ...props: unknown[]) {
   return (
-    <>
-      
-      {children}
-    </>
+    <CategoryWrapper {...props} className={!!active ? 'active' : ''} >
+      <Icon />
+      <p>{text}</p>
+    </CategoryWrapper>
   );
 }
 

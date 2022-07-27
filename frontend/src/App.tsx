@@ -1,14 +1,15 @@
-import Header from "./components/Header";
-import Filters from "./components/Filters";
-import Feed from "./components/Feed";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/home';
+import Login from './pages/login';
 
 function App() {
   return (
-    <>
-      <Header />
-      <Filters />
-      <Feed />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -9,7 +9,7 @@ function Header() {
           Busytrip
         </p>
       </Logo>
-      <Sign href="#">
+      <Sign href="/login">
         Cadastre sua empresa
       </Sign>
     </HeaderContainer>
