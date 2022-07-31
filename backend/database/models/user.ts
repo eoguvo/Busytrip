@@ -32,6 +32,10 @@ function createSchema() {
     avatar_url: {
       type: String
     },
+    cover: {
+      type: String,
+      default: 'https://via.placeholder.com/2000x200'
+    },
     categories: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category'

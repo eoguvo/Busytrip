@@ -25,7 +25,7 @@ export async function authorizate(
 
     next();
   } catch (err) {
-    res.status(401).json({ code: 'UNAUTHENTICATED', message: 'Invalid token' });
+    res.status(401).json({ code: 'UNAUTHENTICATED', message: 'Token inválido' });
   }
 }
 

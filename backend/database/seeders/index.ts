@@ -5,6 +5,7 @@ import { ROLES } from '../../config';
 import '../index'
 import UserModel from '../models/user';
 import CategoryModel from '../models/category';
+import mongoose from '..';
 
 const categoriesMock = [
   { icon: 'FaBars', name: 'Geral' },
@@ -62,3 +63,5 @@ async function SeedCompany(itemsNumber = 15) {
 
 SeedCategory()
 SeedCompany()
+
+mongoose.connection.close()

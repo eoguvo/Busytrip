@@ -7,7 +7,9 @@ export interface ICompany {
   avatar_url: string,
   tags: string[],
   role: string,
+  ratings: number,
+  cover: string,
   location: {
-    coordinates: number[]
+    coordinates: [number, number]
   }
 }

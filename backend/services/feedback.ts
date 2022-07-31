@@ -20,7 +20,7 @@ export class FeedbackService {
         {
             "$group": {
                 "_id": null,
-                "rating": {
+                "ratings": {
                     "$avg": "$ratings"
                 }
             }
@@ -29,20 +29,21 @@ export class FeedbackService {
   }
 
   async GetByCompanyId(company_id: string) {
+    console.log(company_id)
     if (!company_id) throw new Error('Selecione um id');
-    const result = await this.db.find({ company_id }).lean<IFeedback>();
+    const result = await this.db.find({ company_id }).sort({ createdAt : -1 }).lean<IFeedback[]>();
     return result;
   }
 
   async Create(feedback: IFeedback) {
     const { _doc: data } = await this.db.create(feedback);
 
-    const [{ rating },] = await this.db.aggregate(
+    const [{ ratings },] = await this.db.aggregate(
       this.pipeline(feedback.company_id),
       { allowDiskUse: false }
     );
-    
-    await this.UserModel.findByIdAndUpdate(feedback.company_id, {rating})
+    console.log(ratings)
+    await this.UserModel.findOneAndUpdate({_id: feedback.company_id}, {ratings})
 
     return {
       data

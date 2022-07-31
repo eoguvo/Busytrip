@@ -21,11 +21,14 @@ export class UserService {
   async GetById(id: string) {
     if (!id) throw new Error('Selecione um id');
     const user = await this.db.findById(id).lean<IUser>();
-    return this.SerializeUser([user]);
+    return this.SerializeUser([user]) as IUser;
   }
 
   async Create(_user: IUser) {
     try {
+      const userCount = await this.db.count({ email: _user.email });
+      if(userCount !== 0) throw { statusCode: 400, message: "Usuário já existe" }
+      
       const hash: string = await crypto.hash(_user.password!);
       const { _doc: data } = await this.db.create({
         ..._user,

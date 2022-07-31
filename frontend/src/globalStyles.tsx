@@ -1,6 +1,17 @@
 import { createGlobalStyle } from 'styled-components';
  
 const GlobalStyle = createGlobalStyle`
+:root {
+	--primary: #FF5A5F;
+}
+
+body, #root { min-height: 100vh; }
+
+#root {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)

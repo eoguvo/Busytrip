@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
@@ -9,7 +10,7 @@ export const HeaderContainer = styled.div`
   box-shadow: 0px 4px 1px rgba(0, 0, 0, 0.25);
 `
 
-export const Logo = styled.div`
+export const Logo = styled(Link)`
   display: flex;
   color: #FF5A5F;
   font-weight: 700;
@@ -19,10 +20,13 @@ export const Logo = styled.div`
   }
 `;
 
-export const Sign = styled.a`
+export const Sign = styled(Link)`
   color: black;
   text-decoration: none;
   padding: 8px 16px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
+  border-radius: 1rem;
+  transition: all .3s ease-in-out;
+  &:hover {
+    background-color: #f7f7f7;
+  }
 `;

@@ -23,7 +23,7 @@ function createSchema() {
       required: true,
       maxLength: 140
     }
-  });
+  }, { timestamps: true });
 }
 
 const schema = createSchema();

@@ -83,7 +83,7 @@ export class AuthController {
       );
       res.status(200).json({ token });
     } catch (e: any) {
-      console.log(e)
+      
       next({ statusCode: 401, message: e.message || 'Não autorizado' });
     }
   }

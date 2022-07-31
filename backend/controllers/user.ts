@@ -47,10 +47,10 @@ export class UserController {
         this.refreshTokenService.generateTokenCookie(refreshToken)
       );
   
-      res.status(201).json({ user, token, message: 'Created successfully' });
+      res.status(201).json({ user, token, message: 'Criado com sucesso' });
       next();
     } catch (e) {
-      console.log(e)
+      
       next(e);
     }
   }
@@ -59,6 +59,6 @@ export class UserController {
   @Middleware(authorizate)
   async Update(req: Request, res: Response) {
     await this.UserService.Update(req.params.id, req.body);
-    res.status(204).json({ message: 'Updated successfully' });
+    res.status(204).json({ message: 'Atualizado com sucesso' });
   }
 }

@@ -55,13 +55,13 @@ export class CompanyController {
       'refreshToken',
       this.refreshTokenService.generateTokenCookie(refreshToken)
     );
-    res.status(201).json({ company, token, message: 'Created successfully' });
+    res.status(201).json({ company, token, message: 'Criado com sucesso' });
   }
 
   @Put(':id')
   @Middleware(authorizate)
   async Update(req: Request, res: Response) {
     await this.CompanyService.Update(req.params.id, req.body);
-    res.status(204).json({ message: 'Updated successfully' });
+    res.status(204).json({ message: 'Atualizado com sucesso' });
   }
 }

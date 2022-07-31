@@ -8,18 +8,26 @@ import {
   Post
 } from '@overnightjs/core';
 import { authorizate, authorized } from '../middlewares/auth';
+import { UserService } from '../services/user';
 
 @Controller('feedback')
 export class FeedbackController {
   FeedbackService;
+  UserService;
   constructor() {
     this.FeedbackService = new FeedbackService();
+    this.UserService = new UserService();
   }
 
   @Get(':id')
-  async GetByCompanyId(req: Request, res: Response) {
+  async GetByCompanyId(req: Request, res: Response, next: NextFunction) {
     const data = await this.FeedbackService.GetByCompanyId(req.params.id);
-    res.status(200).json(data);
+    if(!data.length) return next({ statusCode: 204 });
+    const user = await this.UserService.GetById(data[0].user_id);
+    const response = [...data.map(e => {
+      return {...e, user}
+    })];
+    res.status(200).json(response);
   }
 
   @Post()

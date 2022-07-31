@@ -7,5 +7,7 @@ export interface CardProps {
   }
   favorite: string[],
   setFavorites: Function,
-  id: string
+  id: string,
+  ratings: number,
+  distance: string|number
 }

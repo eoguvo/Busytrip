@@ -59,7 +59,6 @@ export class CompanyService {
   }
 
   async FindNear(latitude: number, longitude: number, distance = 50) {
-    console.log({ latitude, longitude });
     const filter = {
       location: {
         $near: {
