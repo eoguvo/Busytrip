@@ -1,5 +1,5 @@
 <div align="center">
-    <img src=".github/banner.png" alt="header Busytrip app"/>
+    <img src=".github/Banner.png" alt="header Busytrip app"/>
 </div>
 
 <div align="center">
