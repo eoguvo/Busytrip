@@ -15,7 +15,7 @@ export class CompanyService {
   }
   
   async GetAll() {
-    const companies = await this.db.find({ role: this.companyRole }).lean<ICompany[]>();
+    const companies = await this.db.find({ role: this.companyRole }).sort({ ratings: -1 }).lean<ICompany[]>();
     return this.SerializeCompany(companies);
   }
 

@@ -4,9 +4,12 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
+    "start": "tsc && node build/server.js",
+    "start:dev": "ts-node server.ts",
     "dev": "nodemon",
     "lint": "prettier --write . && eslint --fix",
-    "seed": "ts-node database/seeders"
+    "seed": "ts-node database/seeders",
+    "seed:prod": "node build/database/seeders"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.3.0",
@@ -47,7 +50,6 @@
     "mongoose-paginate": "^5.0.3",
     "morgan": "^1.10.0",
     "ramda": "^0.28.0",
-    "react-router-dom": "^6.3.0",
     "uuid": "^8.3.2"
   }
 }

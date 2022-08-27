@@ -9,5 +9,6 @@ export interface CardProps {
   setFavorites: Function,
   id: string,
   ratings: number,
-  distance: string|number
+  distance: string|number,
+  key: string|number
 }

@@ -18,7 +18,7 @@ function Company() {
   const { data: company } = useQuery<ICompany, Error, ICompany, string[]>(['Companies', id], companyActions.getById);
   return (
     <CompanyContainer>
-      <HeroImg src={company?.cover} alt={`${company?.name} cover image`} />
+      <HeroImg height={200} width={2000} src={company?.cover}  />
       <Body>
         <Content>
             <Logo src={company?.avatar_url} />

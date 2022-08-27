@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const Card = styled.a`
+export const Card = styled(motion.a)`
   display: inline-block;
   padding: 16px;
   transition: .3S all ease-in-out;

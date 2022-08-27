@@ -24,7 +24,7 @@ export const Content = styled.div.attrs((props: ContentTagProps) => ({
 
 export const HeroImg = styled.img`
   background-color: #C5C5C5;
-  width: 100%;
+  width: 100vw;
   height: 30vw;
   max-height: 300px;
   object-fit: cover;

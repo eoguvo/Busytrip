@@ -59,6 +59,7 @@ function useFeedbackActions() {
       const response = status === 204 ? {...data, status} : data;
       return response;
     } catch (e: any) {
+      console.log(e)
       throw e.response.data;
     }
   }

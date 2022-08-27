@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "postinstall": "(cd backend && yarn) && (cd frontend && yarn)",
+    "start": "concurrently \"yarn --cwd \"backend\" start:dev\" \"yarn --cwd \"frontend\" start\""
+  },
+  "engines": {
+    "npm": "please-use-yarn",
+    "yarn": ">= 1.22.19"
+  },
+  "devDependencies": {
+    "concurrently": "^7.3.0"
+  }
+}

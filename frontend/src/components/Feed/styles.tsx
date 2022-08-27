@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const Timeline = styled.div`
+export const Timeline = styled(motion.div)`
   display: grid;
   justify-content: space-evenly;
   align-items: center;
